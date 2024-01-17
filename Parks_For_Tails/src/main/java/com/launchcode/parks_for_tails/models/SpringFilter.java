@@ -1,3 +1,4 @@
+/*
 package com.launchcode.parks_for_tails.models;
 
 import com.launchcode.parks_for_tails.models.User;
@@ -57,3 +58,4 @@ public class SpringFilter implements HandlerInterceptor {
         return false;
     }
 }
+*/

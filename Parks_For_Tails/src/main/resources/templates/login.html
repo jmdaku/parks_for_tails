@@ -1,35 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}"></head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login to PetConnect</title>
+</head>
 <body>
-<header th:replace="~{fragments :: header}"></header>
-<main>
-    <h1>Log In</h1>
+<h1>Login to PetConnect</h1>
 
-    <form method="post">
-        <div class="container">
-            <div class="row">
-                <div class="form-item col-4">
-                    <label th:for="username">Username</label>
-                    <input th:field="${loginFormDTO.username}" />
-                    <p class="error" th:errors="${loginFormDTO.username}"></p>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="form-item col-4">
-                    <label th:for="password">Password</label>
-                    <input th:field="${loginFormDTO.password}" type="password" />
-                    <p class="error" th:errors="${loginFormDTO.password}"></p>
-                </div>
-            </div>
-        </div>
+<form th:action="@{/login}" method="post">
+    <label for="username">Username/Email:</label>
+    <input type="text" id="username" name="email" required autofocus>
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <br>
+    <button type="submit">Login</button>
+</form>
 
-        <button type="submit">Log In</button>
-    </form>
-    <p class="mt-5">Not registered? <a href="/register">Please register here.</a></p>
-</main>
-
+<p>Don't have an account? <a th:href="@{/register}">Register here</a></p>
 </body>
 </html>
