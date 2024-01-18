@@ -5,18 +5,20 @@ import com.launchcode.parks_for_tails.models.User;
 import com.launchcode.parks_for_tails.models.dto.RegistrationFormDTO;
 import com.launchcode.parks_for_tails.models.dto.LoginFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.validation.Errors;
 
-
+@RestController
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600) //5186
 @Controller
 public class UserController {
 
@@ -65,12 +67,15 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String processRegistrationForm(@ModelAttribute @Validated RegistrationFormDTO registrationFormDTO,
-                                          Errors errors,
+    public ResponseEntity<?> registerUser(@RequestBody RegistrationFormDTO registrationFormDTO, Errors errors,
                                           HttpServletRequest request) {
+//    public String processRegistrationForm(@ModelAttribute @Validated RegistrationFormDTO registrationFormDTO,
+//                                          Errors errors,
+//                                          HttpServletRequest request) {
 
         if (errors.hasErrors()) {
-            return "register";
+            //return "register";
+            return ResponseEntity.ok(Map.of("success", false, "message", true));
         }
 
         // Check if a user with the same username already exists
@@ -78,7 +83,8 @@ public class UserController {
 
         if (existingUser != null) {
             errors.rejectValue("username", "username.alreadyExists", "That username already exists");
-            return "register";
+            //return "register";
+            return ResponseEntity.ok(Map.of("success", false, "message", true));
         }
 
         //checking if password and verify password fields match
@@ -86,14 +92,14 @@ public class UserController {
         String verifyPassword = registrationFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-            return "register";
+            return ResponseEntity.ok(Map.of("success", false, "message", true));
         }
 
         //saves user & password; logs in & sends to search page
         User newUser = new User(registrationFormDTO.getUsername(), registrationFormDTO.getPassword());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
-        return "redirect:/search";
+        return ResponseEntity.ok(Map.of("success", false, "message", true));
     }
 
 
