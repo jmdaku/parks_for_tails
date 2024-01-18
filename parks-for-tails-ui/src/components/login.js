@@ -1,4 +1,7 @@
 import React from 'react';
+import parksfortailssm from './parksfortailssm.png';
+import { Link } from 'react-router-dom';
+import Register from './Register';
 import {
   MDBContainer,
   MDBInput,
@@ -7,39 +10,23 @@ import {
 }
 from 'mdb-react-ui-kit';
 
-export default function loginForm () {
+export default function Login() {
   return (
-    <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
+    <div className='App'>
+      <img src={parksfortailssm} alt="logos" width={1000} height={300} />
+      
+      <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
+        <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='text'/>
+        <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password'/>
 
-      <MDBInput wrapperClass='mb-4' label='Email address' id='form1' type='email'/>
-      <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password'/>
+        <MDBBtn className="mb-4">Sign in</MDBBtn>
 
-      <MDBBtn className="mb-4">Sign in</MDBBtn>
-
-      <div className="text-center">
-        <p>Not a member? <a href="#!">Register</a></p>
-        <p>or sign up with:</p>
-
-        <div className='d-flex justify-content-between mx-auto' style={{width: '40%'}}>
-          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-            <MDBIcon fab icon='facebook-f' size="sm"/>
-          </MDBBtn>
-
-          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-            <MDBIcon fab icon='twitter' size="sm"/>
-          </MDBBtn>
-
-          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-            <MDBIcon fab icon='google' size="sm"/>
-          </MDBBtn>
-
-          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-            <MDBIcon fab icon='github' size="sm"/>
-          </MDBBtn>
-
-        </div>
-      </div>
-
-    </MDBContainer>
+        <div className="text-center">
+          Not a member? <Link to="/register">Register here</Link>
+                  
+          </div>
+        
+      </MDBContainer>
+    </div>
   );
 }
