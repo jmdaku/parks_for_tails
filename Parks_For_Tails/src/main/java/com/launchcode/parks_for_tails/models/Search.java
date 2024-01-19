@@ -1,3 +1,4 @@
+/*
 package com.launchcode.parks_for_tails.models;
 
 import jakarta.persistence.Entity;
@@ -67,3 +68,4 @@ public class Search {
     }
 
 }
+*/
