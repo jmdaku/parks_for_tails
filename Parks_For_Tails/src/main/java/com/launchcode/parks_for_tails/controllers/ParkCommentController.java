@@ -1,3 +1,4 @@
+/*
 package com.launchcode.parks_for_tails.controllers;
 
 import com.launchcode.parks_for_tails.models.ParkComment;
@@ -16,7 +17,7 @@ public class ParkCommentController {
 
     // Endpoint to add a new comment to a park
     @PostMapping("/add")
-    public void addComment(@RequestBody ParkComment comment, @RequestParam int userId) {
+    public void addComment(@RequestBody ParkComment comment, @RequestParam Long userId) {
         parkCommentService.addComment(comment, userId);
     }
 
@@ -50,3 +51,4 @@ public class ParkCommentController {
         return parkCommentService.getAllComments();
     }
 }
+*/

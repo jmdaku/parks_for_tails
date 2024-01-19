@@ -1,3 +1,4 @@
+/*
 package com.launchcode.parks_for_tails.controllers;
 
 import org.springframework.stereotype.Controller;
@@ -15,4 +16,4 @@ public class LandingController {
     public String register() {
         return "register";
     }
-}
+}*/
