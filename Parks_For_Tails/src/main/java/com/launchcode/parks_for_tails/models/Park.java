@@ -42,6 +42,9 @@ public class Park {
         this.imageUrl = imageUrl;
     }
 
+
+    public int getId() { return id; }
+
     public String getName() {
         return name;
     }

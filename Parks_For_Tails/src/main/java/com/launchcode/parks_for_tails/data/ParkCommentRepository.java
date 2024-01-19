@@ -6,12 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 // This interface extends JpaRepository, providing CRUD functionality for ParkComment entities
-public interface ParkCommentRepository extends JpaRepository<ParkComment, Long> {
+public interface ParkCommentRepository extends JpaRepository<ParkComment, Integer> {
 
     // Custom query method to find comments by parkId
     // This method is automatically implemented by Spring Data JPA based on its name
     // It returns a list of ParkComment entities associated with the specified parkId
-    List<ParkComment> findByParkId(Long parkId);
+    List<ParkComment> findByParkId(Integer parkId);
 
     // more query methods can be added here based on needs
 
