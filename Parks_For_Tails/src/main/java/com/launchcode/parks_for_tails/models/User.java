@@ -29,6 +29,11 @@ public class User {
     @NotNull
     private String pwhash;
 
+    // New field to store the raw (unencoded) password temporarily
+    @Transient
+    private String rawPassword;
+
+
     // List of comments made by the user.
     // This establishes a one-to-many relationship with ParkComment entities.
     // The mappedBy attribute indicates the inverse side of the relationship (user field in ParkComment).
@@ -47,7 +52,8 @@ public class User {
     public User(String username, String password) {
         this.id = id;
         this.username = username;
-        this.pwhash = encoder.encode(password);
+        this.rawPassword = password;
+        this.pwhash = encoder.encode(rawPassword);
     }
 
     // Encoder instance for encrypting and verifying passwords
@@ -60,6 +66,13 @@ public class User {
 
 
     // Getters & Setters:
+
+    public void setRawPassword(String rawPassword) {
+        this.rawPassword = rawPassword;
+        // Encrypt the raw password and set it to the pwhash field
+        this.pwhash = encoder.encode(rawPassword);
+    }
+
     public int getId() {
         return id;
     }
@@ -83,8 +96,6 @@ public class User {
     public List<ParkComment> getComments() {
         return comments;
     }
-
-
 
 
     @Override
