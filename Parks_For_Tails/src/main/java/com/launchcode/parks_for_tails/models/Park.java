@@ -1,3 +1,4 @@
+/*
 package com.launchcode.parks_for_tails.models;
 
 // Park.java
@@ -93,3 +94,4 @@ public class Park {
                 '}';
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.launchcode.parks_for_tails.controllers;
 
 import com.launchcode.parks_for_tails.models.Search;
@@ -34,3 +35,4 @@ public class SearchController {
         return searchRepository.findAll();
     }
 }
+*/
