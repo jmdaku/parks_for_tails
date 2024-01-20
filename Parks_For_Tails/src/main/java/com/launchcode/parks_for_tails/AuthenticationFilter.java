@@ -13,10 +13,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class AuthenticationFilter implements HandlerInterceptor
-{
-    // LaunchCode has this in their examples, but it is actually never used
-     @Autowired
+public class AuthenticationFilter implements HandlerInterceptor{
+
+    @Autowired
     UserRepository userRepository;
 
     @Autowired
@@ -24,7 +23,7 @@ public class AuthenticationFilter implements HandlerInterceptor
 
     //may need to add images to whitelist
     // Allow certain pages and static resources to be seen by the public (not logged in)
-    private static final List<String> whitelist = Arrays.asList("/api", "/home", "/register", "/login", "/css", "/images");
+    private static final List<String> whitelist = Arrays.asList("/api", "/home", "/register", "/login", "/css", "/logout");
 
     // Check all pages and static resources against blacklist
     private static boolean isWhitelisted(String path) {
@@ -56,7 +55,7 @@ public class AuthenticationFilter implements HandlerInterceptor
         }
 
         // The user is NOT logged in
-        response.sendRedirect("/login");
+        //response.sendRedirect("/login");
         return false;
     }
 }
