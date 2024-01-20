@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class RegistrationFormDTO extends com.launchcode.parks_for_tails.models.dto.LoginFormDTO {
+public class RegistrationFormDTO extends LoginFormDTO {
 
     @NotNull(message = "Password is required")
     @NotBlank(message = "Password cannot be blank")
