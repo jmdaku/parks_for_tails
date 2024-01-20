@@ -58,29 +58,22 @@ public class UserController {
 
     //registration form
     @GetMapping("/register")
-    public String displayRegistrationForm(Model model, HttpSession session) {
-        // Add an empty RegistrationFormDTO to the model for form binding
-        model.addAttribute(new RegistrationFormDTO());
-        // Add a flag indicating whether a user is logged in to the model
-        model.addAttribute("loggedIn", session.getAttribute("user") != null);
-        return "register";
+    public ResponseEntity<RegistrationFormDTO> displayRegistrationForm() {
+        RegistrationFormDTO registrationFormDTO = new RegistrationFormDTO();
+        return ResponseEntity.ok(registrationFormDTO);
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody RegistrationFormDTO registrationFormDTO, Errors errors,
                                           HttpServletRequest request) {
-//    public String processRegistrationForm(@ModelAttribute @Validated RegistrationFormDTO registrationFormDTO,
-//                                          Errors errors,
-//                                          HttpServletRequest request) {
+
+        User existingUser = userRepository.findByUsername(registrationFormDTO.getUsername());
 
         if (errors.hasErrors()) {
-            //return "register";
             return ResponseEntity.ok(Map.of("success", false, "message", true));
         }
 
         // Check if a user with the same username already exists
-        User existingUser = userRepository.findByUsername(registrationFormDTO.getUsername());
-
         if (existingUser != null) {
             errors.rejectValue("username", "username.alreadyExists", "That username already exists");
             //return "register";
@@ -92,34 +85,32 @@ public class UserController {
         String verifyPassword = registrationFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-            return ResponseEntity.ok(Map.of("success", false, "message", true));
+            return ResponseEntity.ok(Map.of("success", false, "message", "Passwords do not match"));
         }
 
         //saves user & password; logs in & sends to search page
         User newUser = new User(registrationFormDTO.getUsername(), registrationFormDTO.getPassword());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
-        return ResponseEntity.ok(Map.of("success", false, "message", true));
+        return ResponseEntity.ok(Map.of("success", true, "message", "User successfully registered"));
     }
 
 
     //login page
     @GetMapping("/login")
-    public String displayLoginForm(Model model, HttpSession session) {
-        // Add an empty LoginFormDTO to the model for form binding
-        model.addAttribute(new LoginFormDTO());
-        // Add a flag indicating whether a user is logged in to the model
-        model.addAttribute("loggedIn", session.getAttribute("user") != null);
-        return "login";
+    public ResponseEntity<LoginFormDTO> displayLoginForm() {
+        LoginFormDTO loginFormDTO = new LoginFormDTO();
+        return ResponseEntity.ok(loginFormDTO);
     }
 
+
+
     @PostMapping("/login")
-    public String processLoginForm(@ModelAttribute @Validated LoginFormDTO loginFormDTO,
-                                   Errors errors,
-                                   HttpServletRequest request) {
+    public ResponseEntity<?> processLoginForm(@RequestBody @Validated LoginFormDTO loginFormDTO,
+                                   Errors errors) {
 
         if (errors.hasErrors()) {
-            return "login";
+            return ResponseEntity.ok(Map.of("success", false, "message", true));
         }
 
         // Find the user in the database by username
@@ -130,24 +121,21 @@ public class UserController {
 
         //verify if username exists and username + password (hashed) match
         if (theUser == null || !theUser.isMatchingPassword(password)) {
-            errors.rejectValue(
-                    "password",
-                    "login.invalid",
-                    "Invalid login. Please try again."
-            );
-            return "login";
+            return ResponseEntity.badRequest().body("Invalid login");
         }
 
+        return ResponseEntity.ok(Map.of("success", true, "message", "User logged in successfully", "userId", theUser.getId()));
+
         //if correct, login & send to search page
-        setUserInSession(request.getSession(), theUser);
-        return "redirect:/search";
+//        setUserInSession(request.getSession(), theUser);
+//        return "redirect:/search";
     }
 
     //logout page
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
-        request.getSession().invalidate();
-        return "redirect:/login";
+    public ResponseEntity<?> logout(){
+        return ResponseEntity.ok("Logout successful");
 
     }
 }
+

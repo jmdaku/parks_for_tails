@@ -22,25 +22,25 @@ public class ParkCommentController {
 
     // Endpoint to get all comments for a specific park
     @GetMapping("/{parkId}")
-    public List<ParkComment> getCommentsByPark(@PathVariable Long parkId) {
+    public List<ParkComment> getCommentsByPark(@PathVariable int parkId) {
         return parkCommentService.getCommentsByPark(parkId);
     }
 
     // Additional endpoint to update an existing comment
     @PutMapping("/update/{commentId}")
-    public void updateComment(@PathVariable Long commentId, @RequestBody ParkComment updatedComment) {
+    public void updateComment(@PathVariable int commentId, @RequestBody ParkComment updatedComment) {
         parkCommentService.updateComment(commentId, updatedComment);
     }
 
     // Additional endpoint to delete a comment by its ID
     @DeleteMapping("/delete/{commentId}")
-    public void deleteComment(@PathVariable Long commentId) {
+    public void deleteComment(@PathVariable int commentId) {
         parkCommentService.deleteComment(commentId);
     }
 
     // Additional endpoint to get a specific comment by its ID
     @GetMapping("/get/{commentId}")
-    public ParkComment getCommentById(@PathVariable Long commentId) {
+    public ParkComment getCommentById(@PathVariable int commentId) {
         return parkCommentService.getCommentById(commentId);
     }
 

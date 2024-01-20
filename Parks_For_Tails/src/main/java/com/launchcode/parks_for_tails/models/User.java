@@ -50,7 +50,6 @@ public class User {
 
     //Constructor for creating a new user with a username and password
     public User(String username, String password) {
-        this.id = id;
         this.username = username;
         this.rawPassword = password;
         this.pwhash = encoder.encode(rawPassword);
