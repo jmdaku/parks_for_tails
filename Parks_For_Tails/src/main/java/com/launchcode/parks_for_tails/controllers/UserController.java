@@ -7,30 +7,55 @@ import com.launchcode.parks_for_tails.models.dto.LoginFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.validation.Errors;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600) //5186
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 public class UserController {
 
     @Autowired
     static UserRepository userRepository;
 
-    private static final String userSessionKey = "user";  // user ID key
+    // user ID key
+    private static final String userSessionKey = "user";
 
     //stores user session
     private static void setUserInSession(HttpSession session, User user) {
         session.setAttribute(userSessionKey, user.getId());
     }
+
+    private <T> String convertMapToJson(ResponseEntity<T> ok) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Map<String, String> elements = new HashMap();
+        elements.put("Key1", "Value1");
+        elements.put("Key2", "Value2");
+        elements.put("Key3", "Value3");
+
+
+        String json = null;
+        try {
+            json = objectMapper.writeValueAsString(elements);
+            System.out.println(json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return json;
+
+    }
+
 
     //get user if session exists (not null or empty)
     public static User getUserFromSession(HttpSession session) {
@@ -64,36 +89,39 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody RegistrationFormDTO registrationFormDTO, Errors errors,
-                                          HttpServletRequest request) {
+    public String registerUser(@RequestBody RegistrationFormDTO registrationFormDTO,
+                               Errors errors,
+                               HttpServletRequest request) {
 
         User existingUser = userRepository.findByUsername(registrationFormDTO.getUsername());
 
         if (errors.hasErrors()) {
-            return ResponseEntity.ok(Map.of("success", false, "message", true));
+            return convertMapToJson(ResponseEntity.ok(Map.of("success", false, "message", "Validation error")));
         }
 
         // Check if a user with the same username already exists
         if (existingUser != null) {
             errors.rejectValue("username", "username.alreadyExists", "That username already exists");
-            //return "register";
-            return ResponseEntity.ok(Map.of("success", false, "message", true));
+            return convertMapToJson(ResponseEntity.ok(Map.of("success", false, "message", "Username already exists")));
         }
 
-        //checking if password and verify password fields match
+        // checking if password and verify password fields match
         String password = registrationFormDTO.getPassword();
         String verifyPassword = registrationFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-            return ResponseEntity.ok(Map.of("success", false, "message", "Passwords do not match"));
+            return convertMapToJson(ResponseEntity.ok(Map.of("success", false, "message", "Passwords do not match")));
         }
 
-        //saves user & password; logs in & sends to search page
+        // saves user & password; logs in & sends to search page
         User newUser = new User(registrationFormDTO.getUsername(), registrationFormDTO.getPassword());
         userRepository.save(newUser);
-        setUserInSession(request.getSession(), newUser);
-        return ResponseEntity.ok(Map.of("success", true, "message", "User successfully registered"));
+        // setUserInSession(request.getSession(), newUser);
+        return convertMapToJson(ResponseEntity.ok(Map.of("success", true, "message", "User successfully registered")));
     }
+
+
+
 
 
     //login page
@@ -102,7 +130,6 @@ public class UserController {
         LoginFormDTO loginFormDTO = new LoginFormDTO();
         return ResponseEntity.ok(loginFormDTO);
     }
-
 
 
     @PostMapping("/login")
