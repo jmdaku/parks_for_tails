@@ -23,7 +23,7 @@ public class AuthenticationFilter implements HandlerInterceptor{
 
     //may need to add images to whitelist
     // Allow certain pages and static resources to be seen by the public (not logged in)
-    private static final List<String> whitelist = Arrays.asList("/api", "/home", "/register", "/login", "/css", "/logout");
+    private static final List<String> whitelist = Arrays.asList("/api", "/home", "/register", "/login", "/css", "/logout", "/api/register");
 
     // Check all pages and static resources against blacklist
     private static boolean isWhitelisted(String path) {
