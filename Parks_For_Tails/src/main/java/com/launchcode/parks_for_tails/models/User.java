@@ -22,8 +22,6 @@ public class User {
     @Size(min = 5, max = 20, message= "Username must be between 5 & 20 characters.")
     private String username;
 
-    @Email(message = "Must be a valid email.")
-    private String email;
 
     // Encrypted password hash of the user
     @NotNull
@@ -31,7 +29,7 @@ public class User {
 
     // New field to store the raw (unencoded) password temporarily
     @Transient
-    private String rawPassword;
+    private String password;
 
 
     // List of comments made by the user.
@@ -51,8 +49,8 @@ public class User {
     //Constructor for creating a new user with a username and password
     public User(String username, String password) {
         this.username = username;
-        this.rawPassword = password;
-        this.pwhash = encoder.encode(rawPassword);
+        this.password = password;
+        this.pwhash = encoder.encode(password);
     }
 
     // Encoder instance for encrypting and verifying passwords
@@ -66,10 +64,14 @@ public class User {
 
     // Getters & Setters:
 
-    public void setRawPassword(String rawPassword) {
-        this.rawPassword = rawPassword;
+    public void setPassword(String password) {
+        this.password = password;
         // Encrypt the raw password and set it to the pwhash field
-        this.pwhash = encoder.encode(rawPassword);
+        this.pwhash = encoder.encode(password);
+    }
+
+    public String getPassword() {
+        return pwhash;
     }
 
     public int getId() {
@@ -80,15 +82,8 @@ public class User {
         return username;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setUsername(String username) {
+       public void setUsername(String username) {
         this.username = username;
     }
 

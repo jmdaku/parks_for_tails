@@ -13,7 +13,8 @@ public class CORSConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("*"); // Allow requests from any origin
+        config.addAllowedOrigin("http://localhost:3000/"); // Allow requests from any origin
+        //config.allowedOriginPatterns("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("GET");
