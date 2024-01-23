@@ -170,6 +170,8 @@ import java.util.Optional;
 //}
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/api")
 public class UserController {
 
     private final UserService userService;
@@ -178,6 +180,40 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
+        // user ID key (from 1st solution)
+    private static final String userSessionKey = "user";
+
+    //stores user session (from 1st solution)
+    private static void setUserInSession(HttpSession session, User user) {
+        session.setAttribute(userSessionKey, user.getId());
+    }
+
+    //get user if session exists (not null or empty)
+    public static User getUserFromSession(HttpSession session) {
+
+            
+        // Retrieve the user ID from the session
+        Integer userId = (Integer) session.getAttribute(userSessionKey);
+
+        // Check if the session contains a user ID
+        if (userId == null) {
+            return null;
+        }
+
+        // Attempt to find the user in the database by ID
+        UserRepository userRepository = null;
+        Optional<User> userOpt = userRepository.findById(userId);
+
+        // Check if the user with the given ID exists
+        if (userOpt.isEmpty()) {
+            return null;
+        }
+
+        // Return the user if found
+        return userOpt.get();
+    }
+    
 
     @PostMapping("/register")
     public ResponseEntity<Object> registerUser(@RequestBody User user) {
@@ -193,16 +229,25 @@ public class UserController {
         }
     }
 
-//    @GetMapping("/{userId}")
-//    public ResponseEntity<User> getUserById(@PathVariable String userId) {
-//        if ("register".equals(userId)) {
-//            // Handle registration separately
-//            return new ResponseEntity<>(HttpStatus.OK); // or redirect to registration page
-//        } else {
-//            // Attempt to get the user by ID
-//            return userService.getUserById(Long.parseLong(userId))
-//                    .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
-//                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//        }
-//    }
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getUserById(@PathVariable String userId) {
+        if ("register".equals(userId)) {
+            // Handle registration separately
+            return new ResponseEntity<>(HttpStatus.OK); // or redirect to registration page
+        } else {
+            // Attempt to get the user by ID
+            return userService.getUserById((int) Long.parseLong(userId))
+                    .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        }
+    }
+
+    //copied from 1st solution
+    //logout page
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout() {
+        return ResponseEntity.ok("Logout successful");
+    }
+    
+    
 }
