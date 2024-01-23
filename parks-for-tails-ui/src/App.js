@@ -1,19 +1,18 @@
-
-import './App.css';
-import loginForm from './components/login.js';
-import registrationForm from './components/register.js';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Home from './components/Home';
+import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
   return (
-    <div className="App">
-   <div>
-      <div className="menu">
-         <loginForm />
-         <registrationForm />
-      </div>
-   </div>
- </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+    </Routes>
   );
 }
 
 export default App;
+
