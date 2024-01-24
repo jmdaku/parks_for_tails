@@ -4,15 +4,19 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
 
-function App() {
+const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-    </Routes>
+    <div>
+      <h1>Welcome to My App</h1>
+      {/* Other components or layout elements could be here */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
+        {/* Additional routes can be added as needed */}
+      </Routes>
+    </div>
   );
-}
+};
 
 export default App;
-
