@@ -97,10 +97,10 @@ public class UserController {
         return ResponseEntity.ok(loginFormDTO);
     }
 
-
     @PostMapping("/login")
     public ResponseEntity<Object> processLoginForm(@RequestBody LoginFormDTO loginFormDTO, HttpSession session) {
-        try {
+
+         try {
             // Attempt to log in the user
             Optional<User> loggedInUser = userService.loginUser(loginFormDTO);
 
