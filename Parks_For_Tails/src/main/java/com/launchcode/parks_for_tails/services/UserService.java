@@ -2,13 +2,10 @@ package com.launchcode.parks_for_tails.services;
 
 import com.launchcode.parks_for_tails.models.User;
 import com.launchcode.parks_for_tails.data.UserRepository;
-import jakarta.validation.constraints.NotNull;
+import com.launchcode.parks_for_tails.models.dto.LoginFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.launchcode.parks_for_tails.SecurityConfig;
 
 import java.util.Optional;
 
@@ -18,6 +15,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
 
     @Autowired
     public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -39,7 +38,23 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Optional<User> getUserById(int userId) {
-        return userRepository.findById(userId);
+    public Optional<User> loginUser(LoginFormDTO loginFormDTO) {
+        // Find the user in the database by username
+        User user = userRepository.findByUsername(loginFormDTO.getUsername());
+
+        // Check if the user with the given username exists
+        if (user == null || !user.isMatchingPassword(loginFormDTO.getPassword())) {
+            return Optional.empty(); // Invalid credentials
+        }
+
+        // Return the user if login is successful
+        return Optional.of(user);
+    }
+
+    public Optional<Object> getUserById(int userId) {
+        return Optional.of(userRepository.findById(userId));
     }
 }
+
+
+

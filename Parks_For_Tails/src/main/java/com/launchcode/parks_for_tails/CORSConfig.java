@@ -13,7 +13,7 @@ public class CORSConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000/"); // Allow requests from any origin
+        config.addAllowedOrigin("http://localhost:3000/"); // Allow requests from React frontend
         //config.allowedOriginPatterns("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("OPTIONS");
