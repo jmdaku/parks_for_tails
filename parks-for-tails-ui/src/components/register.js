@@ -1,9 +1,11 @@
 import React from 'react';
 import parksfortailssm from './parksfortailssm.png';
 import {  useState, useContext } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { LoginContext } from './checkLogin.jsx';
-import {Login } from './Login.js';
+import Login from './Login';
+
+
 import {
   MDBBtn,
   MDBContainer,
@@ -31,27 +33,32 @@ export default function Register() {
     }
 
     try {
+      console.log('Before registration API call');
       const response = await axios.post('http://localhost:8080/api/users/register', {
         username,
         password,
         verifyPassword,
       });
-
+      console.log('After registration API call');
       console.log('Response Body:', response.data);
+      console.log('Response Status:', response.status); // Log status property
 
-      if (response.data.success) {
+      if (response.status === 201) {
+        // Registration successful
+        console.log('Registration successful');
         localStorage.setItem("userId", response.data.userId);
-        navigate('/home');
         setIsLoggedIn(true);
-
-         // Redirect to the login page
+        // Redirect to the login page
+        console.log('Before navigation to /login');
         navigate('/login');
+        console.log('After navigation to /login');
       } else {
+        // Registration failed
+        console.log('Registration failed');
         alert(response.data.message);
       }
     } catch (error) {
       console.error('Error:', error);
-
       alert('An error occurred during registration. Please try again.');
     }
   };
