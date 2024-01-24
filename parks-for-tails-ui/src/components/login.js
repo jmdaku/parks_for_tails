@@ -1,4 +1,6 @@
 import React from 'react';
+import Register from './Register';
+
 import {
   MDBContainer,
   MDBInput,
@@ -7,7 +9,7 @@ import {
 }
 from 'mdb-react-ui-kit';
 
-export default function loginForm () {
+export default function Login () {
   return (
     <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
 
@@ -17,7 +19,7 @@ export default function loginForm () {
       <MDBBtn className="mb-4">Sign in</MDBBtn>
 
       <div className="text-center">
-        <p>Not a member? <a href="#!">Register</a></p>
+        <p>Not a member? <a href=".">Register</a></p>
         <p>or sign up with:</p>
 
         <div className='d-flex justify-content-between mx-auto' style={{width: '40%'}}>
