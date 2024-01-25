@@ -1,4 +1,5 @@
 import React from 'react';
+// Context and state hooks
 import parksfortailssm from './parksfortailssm.png';
 import {  useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -23,8 +24,10 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [verifyPassword, setVerifyPassword] = useState('');
 
+  // Navigation hook
   const navigate = useNavigate();
 
+  // Registration function
   const handleRegister = async (event) => {
     event.preventDefault();
     if (password !== verifyPassword) {
@@ -33,6 +36,7 @@ export default function Register() {
     }
 
     try {
+      // Making a POST request to register the user
       console.log('Before registration API call');
       const response = await axios.post('http://localhost:8080/api/users/register', {
         username,
@@ -58,12 +62,13 @@ export default function Register() {
         alert(response.data.message);
       }
     } catch (error) {
+      // Handling errors during registration
       console.error('Error:', error);
       alert('An error occurred during registration. Please try again.');
     }
   };
 
-
+// UI rendering
   return (
     <div className='App'>
       <img src={parksfortailssm} alt="logos" width={1000} height={300} />
