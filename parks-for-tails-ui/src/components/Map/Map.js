@@ -50,17 +50,17 @@ class Map extends Component {
     // initMap method to initialize the Google Map with a marker
     initMap = () => {
         // Create a new Google Map instance
-        let map = new window.google.maps.Map(document.getElementById('map'), {
-            center: this.state.latLong,
-            zoom: 14,
-        });
+        // let map = new window.google.maps.Map(document.getElementById('map'), {
+        //     center: this.state.latLong,
+        //     zoom: 14,
+        // });
 
         // Create a marker on the map
-        let marker = new window.google.maps.Marker({
-            position: this.state.latLong,
-            map: map,
-            title: 'Hello World!'
-        });
+        // let marker = new window.google.maps.Marker({
+        //     position: this.state.latLong,
+        //     map: map,
+        //     title: 'Hello World!'
+        // });
     }
 
     // Render method to define the structure of the component

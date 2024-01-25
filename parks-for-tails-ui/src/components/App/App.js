@@ -1,27 +1,13 @@
 
-// import './App.css';
-// //import home from './src/Home/Home.js'
-// import Home from './src/components/Home/Home.js';
-
-// const url = 'https://dog-park-finder.herokuapp.com'
-// function App() {
-//   return (
-//     <div className="App">
-//       <Home />
-//     </div>
-//   );
-// }
-
-// export default App;
 import React, { Component } from 'react';
 import './App.css';
 import { Route, Link, Switch } from 'react-router-dom'
 import axios from 'axios'
-import Home from '../Home/Home'
-import Create from '../Create/Create'
-import Show from '../Show/Show';
-import SignUp from '../SignUp/SignUp'
-import SignIn from '../SignIn/SignIn'
+import Home from './Home/Home'
+import Create from './Create/Create'
+import Show from './Show/Show';
+import SignUp from './SignUp/SignUp'
+import SignIn from './SignIn/SignIn.js'
 
 // Define the API URL
 const url = 'https://maps.googleapis.com/maps/api/js?key='

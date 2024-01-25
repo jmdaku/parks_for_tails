@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom'
 import axios from "axios";
-import './SignIn.css'
+import './SignIn.css';
 
 // Define the SignIn component as a class
 class SignIn extends Component {

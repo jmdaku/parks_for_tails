@@ -1,6 +1,6 @@
 package com.launchcode.parks_for_tails.models;
 
-import com.launchcode.parks_for_tails.models.User;
+//import com.launchcode.parks_for_tails.models.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -20,8 +20,10 @@ public class SpringFilter implements HandlerInterceptor {
     @Autowired
     UserController userController;
 
-    // Allow certain pages and static resources to be seen by the public (not logged in)
-    private static final List<String> whitelist = Arrays.asList("/api", "/welcome", "/register", "/login", "/css", "/images");
+    // Allow certain pages and static resources to be seen by the public (not logged
+    // in)
+    private static final List<String> whitelist = Arrays.asList("/api", "/welcome", "/register", "/login", "/css",
+            "/images");
 
     // Check all pages and static resources against blacklist
     private static boolean isWhitelisted(String path) {
@@ -35,8 +37,8 @@ public class SpringFilter implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request,
-                             HttpServletResponse response,
-                             Object handler) throws IOException {
+            HttpServletResponse response,
+            Object handler) throws IOException {
 
         // Don't require sign-in for whitelisted pages
         if (isWhitelisted(request.getRequestURI())) {

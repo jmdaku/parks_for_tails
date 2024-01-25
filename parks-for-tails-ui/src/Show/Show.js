@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import './Show.css'
-import Map from '../Map/Map'
+import Map from '../components/Map/Map'
 
 // Define the API URL for parks
 const url = 'https://dog-park-finder.herokuapp.com/parks/'
