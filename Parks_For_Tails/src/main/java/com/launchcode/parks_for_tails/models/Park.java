@@ -1,6 +1,6 @@
 package com.launchcode.parks_for_tails.models;
 
-// Park.java
+
 import jakarta.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -8,10 +8,10 @@ import java.util.Objects;
 @Entity
 public class Park {
 
-
     @Id
     @GeneratedValue
     private int id;
+
     private String name;
     private String address;
     private int latitude;

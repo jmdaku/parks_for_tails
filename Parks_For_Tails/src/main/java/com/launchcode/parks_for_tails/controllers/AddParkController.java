@@ -34,17 +34,17 @@ public class AddParkController {
 
 
 
-    @GetMapping("/{parkId}")
-    public ResponseEntity<Object> getParkById(@PathVariable String parkId) {
-        if ("addpark".equals(parkId)) {
-            // Handle park storage separately
-            return new ResponseEntity<>(HttpStatus.OK); // or redirect to registration page
-        } else {
-            // Attempt to get the user by ID
-            return parkService.getParkById(Integer.parseInt(parkId))
-                    .map(park -> new ResponseEntity<>(park, HttpStatus.OK))
-                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-        }
-    }
+//    @GetMapping("/{parkId}")
+//    public ResponseEntity<Object> getParkById(@PathVariable String parkId) {
+//        if ("addpark".equals(parkId)) {
+//            // Handle park storage separately
+//            return new ResponseEntity<>(HttpStatus.OK); // or redirect to registration page
+//        } else {
+//            // Attempt to get the user by ID
+//            return parkService.getParkById(Integer.parseInt(parkId))
+//                    .map(park -> new ResponseEntity<>(park, HttpStatus.OK))
+//                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//        }
+//    }
 
 }
