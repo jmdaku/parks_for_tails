@@ -2,7 +2,7 @@ import React from 'react';
 import parksfortailssm from './parksfortailssm.png';
 import {  useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { LoginContext } from './CheckLogin.jsx';
+import { LoginContext } from './checkLogin.jsx';
 import Login from './Login.jsx';
 import axios from 'axios';
 import {
@@ -15,21 +15,21 @@ import {
 from 'mdb-react-ui-kit';
 
 export default function AddPark() {
-    const [parkName, setParkName] = useState('');
-    const [parkAddress, setParkAddress] = useState('');
-    const [parkLatitude, setParkLatitude] = useState('');
-    const [parkLongitude, setParkLongitude] = useState('');
+    const [name, setParkName] = useState('');
+    const [address, setParkAddress] = useState('');
+    const [latitude, setParkLatitude] = useState('');
+    const [longitude, setParkLongitude] = useState('');
     const navigate = useNavigate();
   const handleRegister = async (event) => {
     event.preventDefault();
     
     try {
       console.log('Before park form API call');
-      const response = await axios.post('http://localhost:8080/api/users/addpark', {
-        parkName,
-        parkAddress,
-        parkLatitude,
-        parkLongitude,
+      const response = await axios.post('http://localhost:8080/api/parks/addpark', {
+        name,
+        address,
+        latitude,
+        longitude,
       });
       console.log('After park form API call');
       console.log('Response Body:', response.data);
@@ -39,9 +39,9 @@ export default function AddPark() {
         console.log('Registration successful');
         localStorage.setItem("parkId", response.data.parkId);
         // Redirect to the home page
-        console.log('Before navigation to /home');
-        navigate('/home');
-        console.log('After navigation to /home');
+        console.log('Before navigation to home');
+        navigate('/');
+        console.log('After navigation to home');
       } else {
         // Adding park failed
         console.log('Park not added');
@@ -68,7 +68,7 @@ export default function AddPark() {
                 size='lg'
                 id='form1'
                 type='text'
-                value={parkName}
+                value={name}
                 onChange={(e) => setParkName(e.target.value)}
               />
               <MDBInput
@@ -77,7 +77,7 @@ export default function AddPark() {
                 size='lg'
                 id='form1'
                 type='text'
-                value={parkAddress}
+                value={address}
                 onChange={(e) => setParkAddress(e.target.value)}
               />
               <MDBInput
@@ -86,7 +86,7 @@ export default function AddPark() {
                 size='lg'
                 id='form1'
                 type='number'
-                value={parkLatitude}
+                value={latitude}
                 onChange={(e) => setParkLatitude(e.target.value)}
               />
               <MDBInput
@@ -95,7 +95,7 @@ export default function AddPark() {
                 size='lg'
                 id='form1'
                 type='number'
-                value={parkLongitude}
+                value={longitude}
                 onChange={(e) => setParkLongitude(e.target.value)}
               />
 
