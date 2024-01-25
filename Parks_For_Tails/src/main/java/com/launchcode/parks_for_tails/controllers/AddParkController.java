@@ -19,40 +19,32 @@ import java.util.Optional;
 @RequestMapping("/api/parks")
 public class AddParkController {
 
+    @Autowired
     private ParkService parkService;
 
-    ParkRepository parkRepository;
-
-    //registration form
     @PostMapping("/addpark")
-    public ResponseEntity<Object> newPark(@RequestBody Park park) {
+    public ResponseEntity<Object> savePark(@RequestBody AddParkFormDTO parkForm) {
         try {
-
-            //Todo
-            // Attempt to save the park
-            //Park newPark = parkService.newPark(park);
-
-            return new ResponseEntity<>(park, HttpStatus.CREATED);
-
+            Park newPark = parkService.addPark(parkForm);
+            return new ResponseEntity<>(newPark, HttpStatus.CREATED);
         } catch (Exception e) {
-            // Handle registration failure (e.g., duplicate email)
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping("/{parkId}")
-    public ResponseEntity<Object> getParkById(@PathVariable String parkId) {
-        if ("addpark".equals(parkId)) {
-            // Handle park storage separately
-            return new ResponseEntity<>(HttpStatus.OK); // or redirect to registration page
-        } else {
-            // Attempt to get the user by ID
-            return parkService.getParkById(Integer.parseInt(parkId))
-                    .map(park -> new ResponseEntity<>(park, HttpStatus.OK))
-                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-        }
-    }
 
 
+//    @GetMapping("/{parkId}")
+//    public ResponseEntity<Object> getParkById(@PathVariable String parkId) {
+//        if ("addpark".equals(parkId)) {
+//            // Handle park storage separately
+//            return new ResponseEntity<>(HttpStatus.OK); // or redirect to registration page
+//        } else {
+//            // Attempt to get the user by ID
+//            return parkService.getParkById(Integer.parseInt(parkId))
+//                    .map(park -> new ResponseEntity<>(park, HttpStatus.OK))
+//                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//        }
+//    }
 
 }

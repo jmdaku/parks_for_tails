@@ -13,26 +13,22 @@ public class ParkService {
 
     private ParkRepository parkRepository;
 
-
     @Autowired
     public ParkService(ParkRepository parkRepository) {
         this.parkRepository = parkRepository;
     }
 
-    public Park AddPark(Park park) {
-        // check if required fields are present)
-//        String name = park.getName();
-//        park.setName(name);
-//        String address = park.getAddress();
-//        park.setAddress(address);
-//
+    public Park addPark(AddParkFormDTO parkForm) {
+        // Convert AddParkFormDTO to Park entity and save to the database
+        Park park = new Park();
+        park.setName(parkForm.getName());
+        park.setAddress(parkForm.getAddress());
+        park.setLatitude(parkForm.getLatitude());
+        park.setLongitude(parkForm.getLongitude());
+
         return parkRepository.save(park);
     }
 
-
-
-    public Optional<Object> getParkById(int parkId) {
-        return Optional.of(parkRepository.findById(parkId));
-    }
 }
+
 
