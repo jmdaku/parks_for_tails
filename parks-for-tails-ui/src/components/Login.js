@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MDBContainer, MDBInput, MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 import { useNavigate } from 'react-router-dom';
+import parksfortailssm from './parksfortailssm.png';
 import axios from 'axios';
 
 const Login = () => {
@@ -27,6 +28,8 @@ const Login = () => {
     }
   };
   return (
+    <div className='App'>
+    <img src={parksfortailssm} alt="logos" width={1000} height={300} />
     <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
       <form onSubmit={handleLogin}>
         <MDBInput
@@ -50,33 +53,17 @@ const Login = () => {
           Sign in
         </MDBBtn>
       </form>
-
+      
       <div className="text-center">
         <p>
           Not a member? <a href="/register">Register</a>
         </p>
-        <p>or sign up with:</p>
-
+                
         <div className="d-flex justify-content-between mx-auto" style={{ width: '40%' }}>
-          {/* Social media login buttons */}
-          <MDBBtn tag="a" color="none" className="m-1" style={{ color: '#1266f1' }}>
-            <MDBIcon fab icon="facebook-f" size="sm" />
-          </MDBBtn>
-
-          <MDBBtn tag="a" color="none" className="m-1" style={{ color: '#1266f1' }}>
-            <MDBIcon fab icon="twitter" size="sm" />
-          </MDBBtn>
-
-          <MDBBtn tag="a" color="none" className="m-1" style={{ color: '#1266f1' }}>
-            <MDBIcon fab icon="google" size="sm" />
-          </MDBBtn>
-
-          <MDBBtn tag="a" color="none" className="m-1" style={{ color: '#1266f1' }}>
-            <MDBIcon fab icon="github" size="sm" />
-          </MDBBtn>
-        </div>
+                  </div>
       </div>
     </MDBContainer>
+    </div>
   );
 };
 
