@@ -3,7 +3,7 @@ import parksfortailssm from './parksfortailssm.png';
 import {  useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from './checkLogin.jsx';
-import Login from './Login.jsx';
+import Login from './Login.js';
 import axios from 'axios';
 import {
   MDBBtn,
@@ -15,11 +15,14 @@ import {
 from 'mdb-react-ui-kit';
 
 export default function AddPark() {
+   // State variables for park information
     const [name, setParkName] = useState('');
     const [address, setParkAddress] = useState('');
     const [latitude, setParkLatitude] = useState('');
     const [longitude, setParkLongitude] = useState('');
     const navigate = useNavigate();
+
+    // Function to handle park registration
   const handleRegister = async (event) => {
     event.preventDefault();
     
