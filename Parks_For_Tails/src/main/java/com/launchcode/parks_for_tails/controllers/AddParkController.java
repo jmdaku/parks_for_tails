@@ -25,7 +25,7 @@ public class AddParkController {
 
     //registration form
     @PostMapping("/addpark")
-    public ResponseEntity<Object> addedPark(@RequestBody Park park) {
+    public ResponseEntity<Object> newPark(@RequestBody Park park) {
         try {
 
             //Todo
