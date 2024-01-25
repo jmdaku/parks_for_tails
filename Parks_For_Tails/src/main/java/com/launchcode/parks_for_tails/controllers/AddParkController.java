@@ -19,26 +19,20 @@ import java.util.Optional;
 @RequestMapping("/api/parks")
 public class AddParkController {
 
+    @Autowired
     private ParkService parkService;
 
-    ParkRepository parkRepository;
-
-    //registration form
     @PostMapping("/addpark")
-    public ResponseEntity<Object> newPark(@RequestBody Park park) {
+    public ResponseEntity<Object> savePark(@RequestBody AddParkFormDTO parkForm) {
         try {
-
-            //Todo
-            // Attempt to save the park
-            //Park newPark = parkService.newPark(park);
-
-            return new ResponseEntity<>(park, HttpStatus.CREATED);
-
+            Park newPark = parkService.addPark(parkForm);
+            return new ResponseEntity<>(newPark, HttpStatus.CREATED);
         } catch (Exception e) {
-            // Handle registration failure (e.g., duplicate email)
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+
 
     @GetMapping("/{parkId}")
     public ResponseEntity<Object> getParkById(@PathVariable String parkId) {
@@ -52,7 +46,5 @@ public class AddParkController {
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }
     }
-
-
 
 }
