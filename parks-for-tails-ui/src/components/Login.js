@@ -5,28 +5,33 @@ import parksfortailssm from './parksfortailssm.png';
 import axios from 'axios';
 
 const Login = () => {
+  // State hooks
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  // Login handler function
   const handleLogin = async (event) => {
     event.preventDefault();
 
     try {
+      // Sending a POST request to login
       const response = await axios.post('http://localhost:8080/api/users/login', { username, password });
   
       if (response.status === 200) {
-        // Login successful
+        // Login successful, navigate to the profile page
         navigate('/profile');
       } else {
         // Login failed
         alert('Login failed. Please check your credentials.');
       }
     } catch (error) {
+      // Error handling during login
       console.error('Error during login:', error);
       alert('An error occurred during login. Please try again.');
     }
   };
+  // UI rendering
   return (
     <div className='App'>
     <img src={parksfortailssm} alt="logos" width={1000} height={300} />
