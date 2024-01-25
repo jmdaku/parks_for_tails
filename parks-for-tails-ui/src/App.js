@@ -1,19 +1,22 @@
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Home from './components/Home';
+import Login from './components/Login';
+import Register from './components/Register';
 
-import './App.css';
-import loginForm from './components/login.js';
-import registrationForm from './components/register.js';
-
-function App() {
+const App = () => {
   return (
-    <div className="App">
-   <div>
-      <div className="menu">
-         <loginForm />
-         <registrationForm />
-      </div>
-   </div>
- </div>
+    <div>
+      <h1>Welcome to My App</h1>
+      {/* Other components or layout elements could be here */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
+        {/* Additional routes can be added as needed */}
+      </Routes>
+    </div>
   );
-}
+};
 
 export default App;

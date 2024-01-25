@@ -8,6 +8,9 @@ public class LoginFormDTO {
     // Properties and validation for login form
 
 
+
+
+
     @NotNull(message = "Username is required")
     @NotBlank(message = "Username cannot be blank")
     @Size(min = 5, max = 20, message = "Username must be 5-20 characters long.")

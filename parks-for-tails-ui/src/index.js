@@ -1,17 +1,29 @@
 import React from 'react';
+import { createRoot } from 'react-dom/client';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { LoginProvider } from './components/checkLogin';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const container = document.getElementById('root'); // Use 'root' as the container ID
+const root = createRoot(container);
+
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <LoginProvider> {/* Wrap the entire application with LoginProvider */}
+    <Router>
+      <Routes>
+        <Route path="*" element={<App />} />
+        {/* Other routes */}
+      </Routes>
+    </Router>
+  </LoginProvider>,
 );
+// Render the App component separately if needed
+// root.render(<App />, container);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

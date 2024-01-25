@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 //This controller class handles HTTP requests related to user registration and profile retrieval
 
+
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
+
 
     private final UserService userService;
 

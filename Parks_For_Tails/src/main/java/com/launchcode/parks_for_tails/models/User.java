@@ -25,6 +25,7 @@ public class User {
 
     // Constructors, getters, setters
 
+
     public String getUsername() {
         return username;
     }
