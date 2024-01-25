@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ParkRepository extends JpaRepository<Park, Integer> {
 
-    Park findByParkName(String parkName);
+    Park findByName(String name);
 }
