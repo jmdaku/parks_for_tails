@@ -4,7 +4,8 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile.js';
-import AddPark from './components/AddPark.jsx'
+import AddPark from './components/AddPark.jsx';
+import SearchPage from './components/SearchPage';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/Register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/addpark" element={<AddPark />} />
+        <Route path="/search" element={<SearchPage />} /> 
         {/* Additional routes can be added as needed */}
       </Routes>
     </div>
