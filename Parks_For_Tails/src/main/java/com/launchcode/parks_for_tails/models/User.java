@@ -16,21 +16,34 @@ public class User {
 
     private String password;
 
-    // Constructors, getters, setters
-
-    public String getUsername() {
-        return username;
+    // Constructors, getters, setters:
+    //constructor
+    public User(Long id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
     }
 
+    //empty constructor
+    public User() {}
+
+    //setters
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setPassword(String password) {
+    }
+
+    //getters
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public Long getId() { return id; }
+
 }

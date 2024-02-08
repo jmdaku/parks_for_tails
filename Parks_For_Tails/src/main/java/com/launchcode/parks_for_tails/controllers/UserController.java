@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
 
 //This controller class handles HTTP requests related to user registration and profile retrieval
 
@@ -49,6 +50,17 @@ public class UserController {
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }
     }
+
+
+
+    @GetMapping("/profile/{userId}")
+    public ResponseEntity<User> getProfileById(@PathVariable String userId) {
+
+        return userService.getUserById(Long.parseLong(userId))
+                .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
 }
 
 
