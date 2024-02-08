@@ -1,12 +1,11 @@
 import React from 'react';
-// Context and state hooks
 import parksfortailssm from './parksfortailssm.png';
+import petconnectsm from './petconnectsm.png';
 import {  useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from './checkLogin.jsx';
-import Login from './Login';
 
-
+import Login from './Login.jsx';
 import {
   MDBBtn,
   MDBContainer,
@@ -24,10 +23,8 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [verifyPassword, setVerifyPassword] = useState('');
 
-  // Navigation hook
   const navigate = useNavigate();
 
-  // Registration function
   const handleRegister = async (event) => {
     event.preventDefault();
     if (password !== verifyPassword) {
@@ -36,17 +33,17 @@ export default function Register() {
     }
 
     try {
-      // Making a POST request to register the user
       console.log('Before registration API call');
       const response = await axios.post('http://localhost:8080/api/users/register', {
         username,
         password,
         verifyPassword,
       });
+
       console.log('After registration API call');
       console.log('Response Body:', response.data);
       console.log('Response Status:', response.status); // Log status property
-
+      
       if (response.status === 201) {
         // Registration successful
         console.log('Registration successful');
@@ -56,22 +53,21 @@ export default function Register() {
         console.log('Before navigation to /login');
         navigate('/login');
         console.log('After navigation to /login');
+      
       } else {
         // Registration failed
         console.log('Registration failed');
         alert(response.data.message);
       }
     } catch (error) {
-      // Handling errors during registration
       console.error('Error:', error);
       alert('An error occurred during registration. Please try again.');
     }
   };
-
-// UI rendering
+  
   return (
     <div className='App'>
-      <img src={parksfortailssm} alt="logos" width={1000} height={300} />
+      <img src={petconnectsm} alt="Pet Connect logo" width={800} />
       <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image'>
         <div className='mask gradient-custom-3'></div>
         <MDBCard className='m-5' style={{ maxWidth: '600px' }}>
@@ -105,7 +101,6 @@ export default function Register() {
                 value={verifyPassword}
                 onChange={(e) => setVerifyPassword(e.target.value)}
               />
-
               <MDBBtn className='mb-4 w-100 gradient-custom-4' size='lg' type="submit">Register</MDBBtn>
             </form>
           </MDBCardBody>
