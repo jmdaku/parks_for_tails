@@ -6,6 +6,7 @@ import Register from './components/Register';
 import Profile from './components/Profile.js';
 import AddPark from './components/AddPark.jsx';
 import SearchPage from './components/SearchPage';
+import ParkPage from './components/ParkPage';
 
 const App = () => {
   return (
@@ -16,9 +17,10 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
-        <Route path="/profile/:id/:username" element={<Profile />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/addpark" element={<AddPark />} />
         <Route path="/search" element={<SearchPage />} /> 
+        <Route path="/park" element={<ParkPage />} />
         {/* Additional routes can be added as needed */}
       </Routes>
     </div>
